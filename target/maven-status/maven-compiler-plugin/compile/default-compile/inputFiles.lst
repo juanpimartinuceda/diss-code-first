@@ -1,0 +1,10 @@
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/model/Report.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/model/MethodInfo.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/model/JarFile.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/model/FieldInfo.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/api/DynamicAnalyzerAPI.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/inspector/GetClassesFromJar.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/DynamicAnalyzerServiceApplication.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/dao/DynamicAnalyzer.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/service/DynamicAnalyzerService.java
+/Users/juanpi/Desktop/hello-graphql-service/src/main/java/com/shethap/tech/graphql/model/ClassInfo.java
