@@ -1,6 +1,7 @@
 package com.shethap.tech.graphql.service;
 
 import com.shethap.tech.graphql.dao.DynamicAnalyzer;
+import com.shethap.tech.graphql.model.Query;
 import com.shethap.tech.graphql.model.Report;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class DynamicAnalyzerService {
         this.dynamicAnalyzer = dynamicAnalyzer;
     }
 
-    public Report getReport(String jarName) {
-        return dynamicAnalyzer.getReport(jarName);
+    public Report dynamicAnalyzerQuery(Query query) {
+        return dynamicAnalyzer.dynamicAnalyzerQuery(query);
     }
 }

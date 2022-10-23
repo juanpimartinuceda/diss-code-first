@@ -2,7 +2,6 @@ package com.shethap.tech.graphql.model;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MethodInfo {

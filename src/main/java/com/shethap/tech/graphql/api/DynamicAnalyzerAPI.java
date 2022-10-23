@@ -1,5 +1,6 @@
 package com.shethap.tech.graphql.api;
 
+import com.shethap.tech.graphql.model.Query;
 import com.shethap.tech.graphql.model.Report;
 import com.shethap.tech.graphql.service.DynamicAnalyzerService;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -17,9 +18,9 @@ public class DynamicAnalyzerAPI {
         this.dynamicAnalyzerService = dynamicAnalyzerService;
     }
 
-    @GraphQLQuery(name = "getReport", description = "to get a report of the specified file")
-    public Report getReport(String jarName) {
-        return dynamicAnalyzerService.getReport(jarName);
+    @GraphQLQuery(name = "dynamicAnalyzerQuery", description = "to get a report of the specified file")
+    public Report dynamicAnalyzerQuery(Query query) {
+        return dynamicAnalyzerService.dynamicAnalyzerQuery(query);
     }
 
 }
