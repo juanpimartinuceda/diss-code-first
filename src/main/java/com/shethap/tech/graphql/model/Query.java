@@ -6,6 +6,15 @@ public class Query {
     String _class;
     String _method;
     String _parameters;
+    String _output;
+
+    public String get_output() {
+        return _output;
+    }
+
+    public void set_output(String _output) {
+        this._output = _output;
+    }
 
     public String getJarName() {
         return jarName;

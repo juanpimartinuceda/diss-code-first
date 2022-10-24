@@ -3,6 +3,8 @@ package com.shethap.tech.graphql.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Data
 @Builder
 public class Report {
@@ -16,42 +18,61 @@ public class Report {
     }
 
     public void checkQuery(Query query) {
-        ClassInfo _class = null;
-        MethodInfo _method = null;
         boolean _answer = true;
-
-        if(query.get_class() != null) {
-            for(ClassInfo c: jarFile.getJarClasses()) {
-                if (c.getName().equals(query.get_class())) {
-                    _answer = true;
-                    _class = c;
-                    break;
-                }
-                else {
+        ClassInfo _class = checkClass(query);
+        if (_class == null) {
+            _answer = false;
+        }
+        else {
+            if (query.get_method() != null) {
+                MethodInfo _method = checkMethod(query, _class);
+                if (_method == null) {
                     _answer = false;
                 }
-            }
-        }
-        if(query.get_method() != null && _answer) {
-            for(MethodInfo m: _class.getMethods()) {
-                if (m.getName().equals(query.get_method())) {
-                    _answer = true;
-                    _method = m;
-                    break;
-                }
                 else {
-                    _answer = false;
+                    if (query.get_parameters() != null) {
+                        _answer = checkParameters(query, _method);
+                    }
                 }
-            }
-        }
-        if(query.get_parameters() != null && _answer) {
-            if (_method.getOutput().equals(query.get_parameters())) {
-                _answer = true;
-            }
-            else {
-                _answer = false;
             }
         }
         this.answer = _answer;
+    }
+
+    private boolean checkParameters(Query query, MethodInfo _method) {
+        String[] input = query.get_parameters().split(",", 0);
+        ArrayList<String> expectedInput = _method.getInput();
+        boolean correctInput = true;
+        for (int i=0; i<expectedInput.size(); i++) {
+            correctInput = correctInput && input[i].equals(expectedInput.get(i));
+        }
+        if(query.get_parameters() != null) {
+            if (_method.getOutput().equals(query.get_output())) {
+                return correctInput;
+            }
+        }
+        return false;
+    }
+
+    private MethodInfo checkMethod(Query query, ClassInfo _class) {
+        if(query.get_method() != null) {
+            for(MethodInfo m: _class.getMethods()) {
+                if (m.getName().equals(query.get_method())) {
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
+    public ClassInfo checkClass(Query query) {
+        if(query.get_class() != null) {
+            for(ClassInfo c: jarFile.getJarClasses()) {
+                if (c.getName().equals(query.get_class())) {
+                    return c;
+                }
+            }
+        }
+        return null;
     }
 }
