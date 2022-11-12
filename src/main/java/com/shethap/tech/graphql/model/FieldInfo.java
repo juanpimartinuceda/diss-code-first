@@ -10,7 +10,7 @@ public class FieldInfo {
 
     public FieldInfo(Field f) {
         this.name = f.getName();
-        this.fieldClassName = f.getClass().getSimpleName();
+        this.fieldClassName = f.getType().getName();
         this.isPublic = Modifier.isPublic(f.getModifiers());
     }
 

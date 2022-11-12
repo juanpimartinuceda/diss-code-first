@@ -9,7 +9,6 @@ import java.util.ArrayList;
 @Builder
 public class Report {
     JarFile jarFile;
-
     boolean answer;
 
     public Report(JarFile jarFile, boolean answer) {
