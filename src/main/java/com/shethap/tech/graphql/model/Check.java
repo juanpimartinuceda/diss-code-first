@@ -7,30 +7,30 @@ import java.util.ArrayList;
 
 @Data
 @Builder
-public class Report {
+public class Check {
     JarFile jarFile;
     boolean answer;
 
-    public Report(JarFile jarFile, boolean answer) {
+    public Check(JarFile jarFile, boolean answer) {
         this.jarFile = jarFile;
         this.answer = answer;
     }
 
-    public void checkQuery(Query query) {
+    public void checkQuery(CheckQuery checkQuery) {
         boolean _answer = true;
-        ClassInfo _class = checkClass(query);
+        ClassInfo _class = checkClass(checkQuery);
         if (_class == null) {
             _answer = false;
         }
         else {
-            if (query.get_method() != null) {
-                MethodInfo _method = checkMethod(query, _class);
+            if (checkQuery.getMethodName() != null) {
+                MethodInfo _method = checkMethod(checkQuery, _class);
                 if (_method == null) {
                     _answer = false;
                 }
                 else {
-                    if (query.get_parameters() != null) {
-                        _answer = checkParameters(query, _method);
+                    if (checkQuery.getParametersType() != null) {
+                        _answer = checkParameters(checkQuery, _method);
                     }
                 }
             }
@@ -38,25 +38,25 @@ public class Report {
         this.answer = _answer;
     }
 
-    private boolean checkParameters(Query query, MethodInfo _method) {
-        String[] input = query.get_parameters().split(",", 0);
+    private boolean checkParameters(CheckQuery checkQuery, MethodInfo _method) {
+        String[] input = checkQuery.getParametersType().split(",", 0);
         ArrayList<String> expectedInput = _method.getInput();
         boolean correctInput = true;
         for (int i=0; i<expectedInput.size(); i++) {
             correctInput = correctInput && input[i].equals(expectedInput.get(i));
         }
-        if(query.get_parameters() != null) {
-            if (_method.getOutput().equals(query.get_output())) {
-                return correctInput;
+        if(checkQuery.getOutputType() != null) {
+            if (!_method.getOutput().equals(checkQuery.getOutputType())) {
+                return false;
             }
         }
-        return false;
+        return correctInput;
     }
 
-    private MethodInfo checkMethod(Query query, ClassInfo _class) {
-        if(query.get_method() != null) {
+    private MethodInfo checkMethod(CheckQuery checkQuery, ClassInfo _class) {
+        if(checkQuery.getMethodName() != null) {
             for(MethodInfo m: _class.getMethods()) {
-                if (m.getName().equals(query.get_method())) {
+                if (m.getName().equals(checkQuery.getMethodName())) {
                     return m;
                 }
             }
@@ -64,10 +64,10 @@ public class Report {
         return null;
     }
 
-    public ClassInfo checkClass(Query query) {
-        if(query.get_class() != null) {
+    public ClassInfo checkClass(CheckQuery checkQuery) {
+        if(checkQuery.getClassName() != null) {
             for(ClassInfo c: jarFile.getJarClasses()) {
-                if (c.getName().equals(query.get_class())) {
+                if (c.getName().equals(checkQuery.getClassName())) {
                     return c;
                 }
             }

@@ -9,41 +9,27 @@ import java.util.ArrayList;
 @Repository
 public class DynamicAnalyzer {
 
-    private ArrayList<Report> reports;
+    private ArrayList<Check> checks;
     private TestRunner testRunner;
 
     public DynamicAnalyzer() {
-        this.reports = new ArrayList<>();
         this.testRunner = new TestRunner();
     }
 
-    public Report dynamicAnalyzerQuery(Query query) { //The report is done just once, then returns what you ask for in the query.
-        String jarName = query.getJarName();
-        Report report = getReport(jarName);
-        switch(query.getQuery()){
-            case("is"):
-                report.checkQuery(query);
-            default:
-                return report;
-        }
-    }
-
-    public Report getReport(String jarName) {
-        for (Report r : this.reports) {
-            if (r.getJarFile().getJarName().equals(jarName)) {
-                return r;
-            }
-        }
-        return(addReport(jarName));
-    }
-
-    public Report addReport(String jarName) {
-        Report report = new Report(JarFile.getByName(jarName), true);
-        this.reports.add(report);
-        return report;
+    public Check checkQuery(CheckQuery checkQuery) { //The report is done just once, then returns what you ask for in the query.
+        String jarName = checkQuery.getJarName();
+        Check check = new Check(JarFile.getByName(jarName), true);
+        check.checkQuery(checkQuery);
+        return check;
     }
 
     public TestResult testQuery(Test test) {
         return testRunner.runTest(test);
+    }
+
+    public Description descriptionQuery(DescriptionQuery query) {
+        String jarName = query.getJarName();
+        Description description = Description.getDescription(JarFile.getByName(jarName), query);
+        return description;
     }
 }

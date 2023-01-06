@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 public class ClassInfo {
+    // need to add the possibility to query for specific class information, methods or fields. Listen to michael recordings
     String name;
     boolean isPublic;
     boolean isInterface;

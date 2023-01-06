@@ -1,10 +1,7 @@
 package com.shethap.tech.graphql.service;
 
 import com.shethap.tech.graphql.dao.DynamicAnalyzer;
-import com.shethap.tech.graphql.model.Query;
-import com.shethap.tech.graphql.model.Report;
-import com.shethap.tech.graphql.model.Test;
-import com.shethap.tech.graphql.model.TestResult;
+import com.shethap.tech.graphql.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +13,11 @@ public class DynamicAnalyzerService {
         this.dynamicAnalyzer = dynamicAnalyzer;
     }
 
-    public Report dynamicAnalyzerQuery(Query query) {
-        return dynamicAnalyzer.dynamicAnalyzerQuery(query);
+    public Check checkQuery(CheckQuery checkQuery) {
+        return dynamicAnalyzer.checkQuery(checkQuery);
     }
     public TestResult testQuery(Test test) { return dynamicAnalyzer.testQuery(test); }
+
+    public Description descriptionQuery(DescriptionQuery query) { return dynamicAnalyzer.descriptionQuery(query);
+    }
 }
