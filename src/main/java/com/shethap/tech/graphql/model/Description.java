@@ -10,7 +10,7 @@ public class Description {
 
     ArrayList<ClassInfo> classDescription;
 
-    ArrayList<MethodInfo> methodDescription;//Que pasa cuando hay mas de un constructor? overrided methdos
+    ArrayList<MethodInfo> methodDescription;//Que pasa cuando hay mas de un constructor? overrided methdos //Falta rellenarlo cuando el output es mas de una clase (especificar que no esta hecho para usarse en esos casos o mostrar la clase a la que pertenece, asi podrias buscar metodos ignorando la clase a la que pertenecen, habria que modificar la estructura de ClassInfo etc)
 
     ArrayList<FieldInfo> fieldDescription;
 
@@ -64,8 +64,10 @@ public class Description {
             } else {
                 classes= findClassByName(jarFile, className);
             }
-            methods = findMethods(classes, query.getMethodName());
-            fields = findFields(classes, query.getFieldName());
+            if (classes.size() > 0) {
+                methods = findMethods(classes, query.getMethodName());
+                fields = findFields(classes, query.getFieldName());
+            }
         }
         return new Description(jarFile, classes, methods, fields);
     }
