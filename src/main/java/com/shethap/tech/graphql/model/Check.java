@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 @Data
 @Builder
@@ -65,6 +66,17 @@ public class Check {
     }
 
     public ClassInfo checkClass(CheckQuery checkQuery) {
+        if(checkQuery.getClassName().startsWith("Regex: ")) {
+            String regex = checkQuery.getClassName().split(" ", 0)[1];
+            Pattern pattern = Pattern.compile(regex);
+            for(ClassInfo c: jarFile.getJarClasses()) {
+                if (!pattern.matcher(c.getName()).find()) {
+                    return null;
+                }
+            }
+            return jarFile.getJarClasses().get(0);
+        }
+
         if(checkQuery.getClassName() != null) {
             for(ClassInfo c: jarFile.getJarClasses()) {
                 if (c.getName().equals(checkQuery.getClassName())) {
